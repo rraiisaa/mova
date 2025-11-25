@@ -6,15 +6,16 @@ import 'package:mova_app/screens/home/widgets/movie_poster_item.dart';
 import 'package:mova_app/screens/home/widgets/movie_horizontal_list.dart';
 import 'package:mova_app/screens/popular/popular_screen.dart';
 import 'package:mova_app/screens/widget/bottom_navbar.dart';
+import 'package:mova_app/utils/app_color.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Movie>> upcoming;
   late Future<List<Movie>> popular;
   late Future<List<Movie>> topRated;
@@ -31,7 +32,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2B2B2B),
+      backgroundColor: AppColors.kPrimary,
       bottomNavigationBar: MovaBottomNav(
         currentIndex: _selectedIndex,
         onTap: (i) {
@@ -42,7 +43,7 @@ class _HomeState extends State<Home> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,30 +52,30 @@ class _HomeState extends State<Home> {
                 future: upcoming,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
+                    return SizedBox(
                         height: 260, child: Center(child: CircularProgressIndicator()));
                   }
                   if (snapshot.hasError) {
                     return SizedBox(
                         height: 260,
-                        child: Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.white))));
+                        child: Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: AppColors.kTextColor))));
                   }
                   final movie = snapshot.data!.first;
                   return HomeHeader(movie: movie);
                 },
               ),
 
-              const SizedBox(height: 18),
+              SizedBox(height: 18),
 
               // POPULAR SECTION (with See all -> PopularScreen)
               FutureBuilder<List<Movie>>(
                 future: popular,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(height: 220, child: Center(child: CircularProgressIndicator()));
+                    return SizedBox(height: 220, child: Center(child: CircularProgressIndicator()));
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white)));
+                    return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: AppColors.kTextColor)));
                   }
                   final movies = snapshot.data ?? [];
                   return MovieHorizontalList(
@@ -102,7 +103,7 @@ class _HomeState extends State<Home> {
                     return const SizedBox(height: 220, child: Center(child: CircularProgressIndicator()));
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}', style: const TextStyle(color: Colors.white)));
+                    return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: AppColors.kTextColor)));
                   }
                   final movies = snapshot.data ?? [];
                   return MovieHorizontalList(
@@ -115,7 +116,7 @@ class _HomeState extends State<Home> {
                 },
               ),
 
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
             ],
           ),
         ),

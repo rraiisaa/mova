@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/models/mova_model.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class HomeHeader extends StatelessWidget {
   final Movie movie;
@@ -56,7 +57,7 @@ class HomeHeader extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.85)],
+                  colors: [Colors.transparent, AppColors.kPrimary.withValues(alpha: 0.7)],
                 ),
               ),
             ),
@@ -74,20 +75,20 @@ class HomeHeader extends StatelessWidget {
                   movie.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: AppColors.kTextColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
 
                 Text(
                   // placeholder genres — kamu bisa map genre IDs -> names jika mau
                   "Action • Adventure • Sci-fi",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.75),
+                    color: AppColors.kTextColor.withValues(alpha: 0.75),
                     fontSize: 12,
                   ),
                 ),
@@ -98,17 +99,17 @@ class HomeHeader extends StatelessWidget {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () => _onPlay(context),
-                      icon: const Icon(Icons.play_arrow, color: Colors.white),
-                      label: const Text(
+                      icon: Icon(Icons.play_arrow, color: AppColors.kTextColor),
+                      label: Text(
                         "Play",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: AppColors.kTextColor),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE21220),
+                        backgroundColor: AppColors.kSecondary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 10,
                         ),
@@ -119,21 +120,21 @@ class HomeHeader extends StatelessWidget {
 
                     OutlinedButton.icon(
                       onPressed: () => _onMyList(context),
-                      icon: const Icon(Icons.add, color: Colors.white),
-                      label: const Text(
+                      icon: Icon(Icons.add, color: AppColors.kTextColor),
+                      label: Text(
                         "My List",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: AppColors.kTextColor),
                       ),
                       style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Colors.white24),
+                        side: BorderSide(color: Colors.white24),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 14,
                           vertical: 10,
                         ),
-                        foregroundColor: Colors.white,
+                        foregroundColor: AppColors.kTextColor,
                       ),
                     ),
                   ],

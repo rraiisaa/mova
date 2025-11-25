@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mova_app/screens/home/home_screen.dart';
+import 'package:mova_app/screens/detail/detail_screen.dart';
 
 
 void main() {
@@ -12,12 +12,12 @@ class MovaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mova',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: const MovieDetailsScreen(),
     );
   }
 }

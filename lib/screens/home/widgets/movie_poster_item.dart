@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/models/mova_model.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class MoviePosterItem extends StatelessWidget {
   final Movie movie;
@@ -34,14 +35,14 @@ class MoviePosterItem extends StatelessWidget {
                   top: 6,
                   left: 6,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE21220),
+                      color: AppColors.kSecondary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       movie.voteAverage.toStringAsFixed(1),
-                      style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: AppColors.kTextColor, fontSize: 11, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

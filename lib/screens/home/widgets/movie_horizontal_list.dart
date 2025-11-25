@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/models/mova_model.dart';
 import 'package:mova_app/screens/home/widgets/movie_poster_item.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class MovieHorizontalList extends StatelessWidget {
   final String title;
@@ -28,7 +29,7 @@ class MovieHorizontalList extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.kTextColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -40,7 +41,7 @@ class MovieHorizontalList extends StatelessWidget {
                   child: const Text(
                     "See all",
                     style: TextStyle(
-                      color: Colors.redAccent,
+                      color: AppColors.kSecondary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -49,7 +50,7 @@ class MovieHorizontalList extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
 
         /// Horizontal Scroll Posters
         SizedBox(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/models/mova_model.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class PopularScreen extends StatelessWidget {
   final List<Movie> movies;
@@ -10,17 +11,17 @@ class PopularScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2B2B2B),
+      backgroundColor: AppColors.kPrimary,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF2B2B2B),
+        backgroundColor: AppColors.kPrimary,
         elevation: 0,
-        title: Text(title, style: const TextStyle(color: Colors.white)),
+        title: Text(title, style: const TextStyle(color: AppColors.kTextColor)),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(12),
         child: GridView.builder(
           itemCount: movies.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
@@ -44,14 +45,14 @@ class PopularScreen extends StatelessWidget {
                     top: 8,
                     left: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE21220),
+                        color: AppColors.kSecondary,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
                         movie.voteAverage.toStringAsFixed(1),
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                        style: const TextStyle(color: AppColors.kTextColor, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ),
                   ),

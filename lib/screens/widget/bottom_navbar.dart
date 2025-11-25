@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class MovaBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -13,10 +14,10 @@ class MovaBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF2B2B2B),
+      backgroundColor: AppColors.kPrimary,
       currentIndex: currentIndex,
       onTap: onTap,
-      selectedItemColor: const Color(0xFFE21220),
+      selectedItemColor: AppColors.kSecondary,
       unselectedItemColor: Colors.white70,
       type: BottomNavigationBarType.fixed,
       items: const [
@@ -25,8 +26,8 @@ class MovaBottomNav extends StatelessWidget {
           label: "Home",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.movie_outlined),
-          label: "Movies",
+          icon: Icon(Icons.explore_outlined),
+          label: "Explore",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.bookmark_outline),
@@ -34,7 +35,7 @@ class MovaBottomNav extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
-          label: "Profile",
+          label: "Account",
         ),
       ],
     );

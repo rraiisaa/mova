@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -15,12 +16,12 @@ class SectionHeader extends StatelessWidget {
         children: [
           Text(title,
               style: const TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                  fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.kTextColor)),
           GestureDetector(
             onTap: onTap,
             child: const Text(
               "See all",
-              style: TextStyle(color: Colors.redAccent),
+              style: TextStyle(color: AppColors.kSecondary),
             ),
           )
         ],
