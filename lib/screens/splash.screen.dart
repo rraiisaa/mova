@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:mova_app/routes/app_pages.dart';
-import 'package:mova_app/screens/widget/custom_loader.dart';
+import 'package:mova_app/screens/widgets/custom_loader.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

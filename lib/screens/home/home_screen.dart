@@ -6,8 +6,8 @@ import 'package:mova_app/screens/detail/detail_screen.dart';
 import 'package:mova_app/screens/home/widgets/home_header.dart';
 import 'package:mova_app/screens/home/widgets/movie_horizontal_list.dart';
 import 'package:mova_app/screens/popular/popular_screen.dart';
-import 'package:mova_app/screens/widget/bottom_navbar.dart';
-import 'package:mova_app/screens/widget/custom_loader.dart';
+import 'package:mova_app/screens/widgets/bottom_navbar.dart';
+import 'package:mova_app/screens/widgets/custom_loader.dart';
 import 'package:mova_app/utils/app_color.dart';
 
 class HomeScreen extends StatefulWidget {

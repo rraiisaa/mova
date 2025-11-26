@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:mova_app/premium/premium_screen.dart';
 import 'package:mova_app/screens/detail/detail_screen.dart';
 import 'package:mova_app/screens/explore/explore_screen.dart';
 import 'package:mova_app/screens/home/home_screen.dart';
 import 'package:mova_app/screens/onboarding_screen.dart';
 import 'package:mova_app/screens/popular/popular_screen.dart';
+import 'package:mova_app/screens/profile/profile_screen.dart';
 import 'package:mova_app/screens/splash.screen.dart';
 
 part 'app_routes.dart';
@@ -12,7 +14,7 @@ class AppPages {
   // AppPages._();
 
   // INITIAL = screen pertama yang muncul saat apliaksi dibuka
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.PROFILE;
 
    static final routes  = [
     GetPage(
@@ -35,10 +37,13 @@ class AppPages {
       name: _Paths.EXPLORE,
       page: () => ExploreScreen(),
     ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => ProfileScreen(),
+    ),
+    GetPage(
+      name: _Paths.PREMIUM,
+      page: () => PremiumScreen(),
+    ),
    ];
 }
-
-// GetPage(
-//       name: _Paths.MOVIE_DETAIL,
-//       page: () => MovieDetailsScreen(movie: Get.arguments),
-//     ),
