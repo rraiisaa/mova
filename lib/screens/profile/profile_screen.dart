@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 import 'package:mova_app/premium/premium_screen.dart';
+import 'package:mova_app/routes/app_pages.dart';
 import 'package:mova_app/screens/profile/widgets/settings_switch_tile.dart';
+import 'package:mova_app/screens/widgets/bottom_navbar.dart';
+import 'package:mova_app/utils/app_color.dart';
 import 'widgets/premium_card.dart';
 import 'widgets/settings_tile.dart';
 
@@ -10,9 +15,12 @@ class ProfileScreen extends StatefulWidget {
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
+  
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  int _selectedIndex = 3;
+
   bool darkMode = true;
   void _showLogoutSheet(BuildContext context) {
   showModalBottomSheet(
@@ -21,13 +29,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     backgroundColor: Colors.transparent,
     builder: (_) {
       return DraggableScrollableSheet(
+        
         initialChildSize: 0.32,
         minChildSize: 0.28,
         maxChildSize: 0.50,
         builder: (context, controller) {
           return Container(
             decoration: const BoxDecoration(
-              color: Color(0xFF191A1F),
+              color: AppColors.kPrimary,
               borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
@@ -40,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 5,
                     width: 45,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
+                      color: AppColors.kTextColor.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -50,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const Text(
                   'Logout',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.kTextColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                   ),
@@ -59,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(height: 14),
 
                 const Text(
-                  'Are you sure you want to logout?',
+                  'Are you sure want to logout?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white70,
@@ -73,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // --- Buttons ---
                 Row(
                   children: [
-                    // CANCEL BUTTON
+                    // cancel button
                     Expanded(
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
@@ -87,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               "Cancel",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.kTextColor,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -108,14 +117,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           decoration: BoxDecoration(
-                            color: Color(0xFFE21220),
+                            color: AppColors.kSecondary,
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: const Center(
                             child: Text(
-                              "Yes, Logout",
+                              "Yes, Logout.",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.kTextColor,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -138,20 +147,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const bg = Color(0xFF0F0F0F);
-    const netflixRed = Color(0xFFE21220);
 
     return Scaffold(
-      backgroundColor: bg,
+      bottomNavigationBar: MovaBottomNav(
+        currentIndex: _selectedIndex,
+        onTap: (i) {
+          setState(() => _selectedIndex = i);
+          // tambahkan navigasi
+          if (i == 0) {
+            Navigator.pushReplacementNamed(context, Routes.HOME);
+          } else if (i == 1) {
+            Navigator.pushReplacementNamed(context, Routes.EXPLORE);
+          } else if (i == 2) {
+            Navigator.pushReplacementNamed(context, '/saved');
+          } else if (i == 3) {
+            // tetap di profile
+          }
+        },
+      ),
+      backgroundColor: AppColors.kPrimary,
       appBar: AppBar(
-        backgroundColor: bg,
+        backgroundColor: AppColors.kPrimary,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 20, ),
           child: Text(
             "M",
             style: const TextStyle(
-              color: netflixRed,
+              color: AppColors.kSecondary,
               fontSize: 32,
               fontWeight: FontWeight.bold,
             ),
@@ -162,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppColors.kTextColor,
           ),
         ),
       ),
@@ -187,10 +210,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 28,
                     width: 28,
                     decoration: const BoxDecoration(
-                      color: netflixRed,
+                      color: AppColors.kSecondary,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                    child: const Icon(Icons.edit, color: AppColors.kTextColor, size: 16),
                   ),
                 ),
               ],
@@ -201,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Text(
               "Andrew Ainsley",
               style: TextStyle(
-                color: Colors.white,
+                color: AppColors.kTextColor,
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
@@ -219,10 +242,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             // Premium Card
             PremiumCard(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const PremiumScreen()),
-              ),
+              onTap: () {
+                Get.offAllNamed(Routes.PREMIUM); // GANTI route sesuai kebutuhan
+              },
             ),
 
             const SizedBox(height: 30),

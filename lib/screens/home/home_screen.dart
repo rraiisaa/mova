@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (i == 2) {
             Navigator.pushReplacementNamed(context, '/saved');
           } else if (i == 3) {
-            Navigator.pushReplacementNamed(context, '/profile');
+            Navigator.pushReplacementNamed(context, Routes.PROFILE);
           }
         },
       ),
