@@ -20,7 +20,7 @@ class MovaBottomNav extends StatelessWidget {
       selectedItemColor: AppColors.kSecondary,
       unselectedItemColor: Colors.white70,
       type: BottomNavigationBarType.fixed,
-      items: const [
+      items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
           label: "Home",
@@ -31,11 +31,11 @@ class MovaBottomNav extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.bookmark_outline),
-          label: "Saved",
+          label: "My List",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
-          label: "Account",
+          label: "Profile",
         ),
       ],
     );

@@ -1,17 +1,19 @@
 class Movie {
+  final int id;
   final String title;
   final String backDropPath;
   final String overview;
   final String posterPath;
   final double voteAverage;
+  final String mediaType;
   final List<dynamic> genreIds;
 
-  // Tambahan yang diperlukan screen details
   final String originalLanguage;
   final String releaseDate;
   final double popularity;
 
   Movie({
+    required this.id,
     required this.title,
     required this.backDropPath,
     required this.overview,
@@ -21,36 +23,37 @@ class Movie {
     required this.originalLanguage,
     required this.releaseDate,
     required this.popularity,
+    required this.mediaType,
   });
 
   factory Movie.fromMap(Map<String, dynamic> map) {
     return Movie(
+      id: map['id'] ?? 0,
       title: map['title'] ?? '',
       backDropPath: map['backdrop_path'] ?? '',
       overview: map['overview'] ?? '',
       posterPath: map['poster_path'] ?? '',
       voteAverage: (map['vote_average'] ?? 0).toDouble(),
       genreIds: map['genre_ids'] ?? [],
-
-      // Field tambahan dari API
-      originalLanguage: map['original_language'] ?? '-',
-      releaseDate: map['release_date'] ?? '-',
+      originalLanguage: map['original_language'] ?? '',
+      releaseDate: map['release_date'] ?? '',
       popularity: (map['popularity'] ?? 0).toDouble(),
+      mediaType: map['media_type'] ?? 'movie',
     );
   }
 
-  Map<String, dynamic> toMap() {
+  /// ---- MAPPING BACK TO JSON (optional) ----
+  Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
-      'backDropPath': backDropPath,
+      'backdrop_path': backDropPath,
       'overview': overview,
-      'posterPath': posterPath,
-      'voteAverage': voteAverage,
-      'genreIds': genreIds,
-
-      // Tambahan (opsional masuk ke map)
-      'originalLanguage': originalLanguage,
-      'releaseDate': releaseDate,
+      'poster_path': posterPath,
+      'vote_average': voteAverage,
+      'genre_ids': genreIds,
+      'original_language': originalLanguage,
+      'release_date': releaseDate,
       'popularity': popularity,
     };
   }

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/models/mova_model.dart';
 import 'package:mova_app/screens/detail/widgets/more_like_this.dart';
 import 'package:mova_app/screens/detail/widgets/trailer.dart';
+import 'package:mova_app/services/mova_services.dart';
 import 'package:mova_app/utils/app_color.dart';
 import 'Widgets/comments.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui';
 
 class MovieDetailsScreen extends StatefulWidget {
-  const MovieDetailsScreen({super.key});
+  final Movie movie; // terima data dari home
+
+  const MovieDetailsScreen({super.key, required this.movie});
 
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
@@ -16,10 +21,23 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  List<String> genres = [];
+  String? trailerKey;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    loadMovieDetails();
+  }
+
+  Future<void> loadMovieDetails() async {
+    genres = await MovieServices.fetchGenres(widget.movie.id);
+    trailerKey = await MovieServices().getMovieTrailerKey(
+      widget.movie.id,
+      widget.movie.mediaType,
+    );
+    setState(() {});
   }
 
   @override
@@ -33,12 +51,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.asset(
-          "assets/images/poster.jpg",
+        Image.network(
+          "https://image.tmdb.org/t/p/w500${widget.movie.backDropPath}",
           fit: BoxFit.cover,
           errorBuilder: (c, e, s) =>
               Image.network('https://picsum.photos/800/600', fit: BoxFit.cover),
         ),
+
         Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -70,9 +89,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: Text(
-              'Avatar: The Way of Water',
+              widget.movie.title ?? "No Title",
               style: TextStyle(
                 color: AppColors.kTextColor,
                 fontSize: 22,
@@ -152,15 +171,16 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                '9.8',
+                                "${widget.movie.voteAverage?.toStringAsFixed(1)}",
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 36,
+                                  color: AppColors.kTextColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
+
                               SizedBox(height: 4),
                               Text(
                                 '/10',
@@ -345,7 +365,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.white24),
       ),
-      child: Text(label, style: const TextStyle(fontSize: 12, color: Colors.white)),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 12, color: Colors.white),
+      ),
     );
 
     return Padding(
@@ -359,7 +382,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
             onTap: () => _showRatingSheet(context),
             child: const Text(
               '9.8',
-              style: TextStyle(color: AppColors.kTextColor, fontWeight: FontWeight.w600, fontSize: 15),
+              style: TextStyle(
+                color: AppColors.kTextColor,
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -372,7 +399,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
     );
   }
 
-  // ===== PLAY BUTTON =====
+  // button play & download
   Widget _buildActionButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
@@ -387,7 +414,31 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                final trailerKey = await MovieServices().getMovieTrailerKey(
+                  widget.movie.id,
+                  "en-US",
+                );
+
+                if (trailerKey != null) {
+                  final url = Uri.parse(
+                    "https://www.youtube.com/watch?v=$trailerKey",
+                  );
+
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Could not launch trailer")),
+                    );
+                  }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Trailer not available")),
+                  );
+                }
+              },
+
               icon: const Icon(Icons.play_arrow, color: Colors.white),
               label: const Text(
                 'Play',
@@ -431,7 +482,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
 
   // ===== SYNOPSIS =====
   Widget _buildSynopsis() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -442,7 +493,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           ),
           SizedBox(height: 8),
           Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+            widget.movie.overview ?? "No description available",
             style: TextStyle(height: 1.3, color: AppColors.kTextColor),
           ),
         ],
@@ -459,7 +510,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           backgroundImage: NetworkImage("https://picsum.photos/seed/$name/200"),
         ),
         const SizedBox(height: 6),
-        Text(name, style: const TextStyle(fontSize: 12, color: AppColors.kTextColor)),
+        Text(
+          name,
+          style: const TextStyle(fontSize: 12, color: AppColors.kTextColor),
+        ),
         Text(role, style: const TextStyle(color: Colors.white54)),
       ],
     );
@@ -596,14 +650,24 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           controller: _tabController,
           children: [
             // TRAILERS
-            ListView(
-              padding: const EdgeInsets.all(16),
-              children: const [
-                TrailerCard(title: "Trailer 3: Final", duration: "1m 45s"),
-                SizedBox(height: 14),
-                TrailerCard(title: "Trailer 2", duration: "1m 24s"),
-              ],
-            ),
+            trailerKey == null
+                ? Center(
+                    child: Text(
+                      "Trailer not available",
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  )
+                : ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      TrailerCard(
+                        title: "Official Trailer",
+                        duration: "1m 45s",
+                        trailerKey: trailerKey!, // kirim ke widget trailer
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+                  ),
 
             // MORE LIKE THIS
             GridView.count(
@@ -644,7 +708,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                 SizedBox(height: 12),
                 CommentTile(
                   name: "John Doe",
-                  text: "Great visuals and soundtrack!" ,
+                  text: "Great visuals and soundtrack!",
                   color: AppColors.kTextColor,
                 ),
               ],
