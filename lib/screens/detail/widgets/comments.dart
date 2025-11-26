@@ -1,10 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class CommentTile extends StatelessWidget {
   final String name;
   final String text;
-  const CommentTile({Key? key, required this.name, required this.text}) : super(key: key);
+  final Color color;
+  const CommentTile({Key? key, required this.name, required this.text, required this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +22,18 @@ class CommentTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text(name, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.kTextColor)),
                   Text('3 days ago', style: const TextStyle(color: Colors.white54, fontSize: 12)),
                 ],
               ),
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               Text(text),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(Icons.favorite_border, size: 18),
-                  SizedBox(width: 6),
-                  Text('938', style: TextStyle(color: Colors.white54)),
+                  const Icon(Icons.favorite_border, size: 18, color: Colors.white54),
+                  const SizedBox(width: 6),
+                  const Text('938', style: TextStyle(color: Colors.white54)),
                 ],
               )
             ],

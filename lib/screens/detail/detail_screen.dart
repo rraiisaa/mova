@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mova_app/screens/detail/Widgets/comments.dart';
 import 'package:mova_app/screens/detail/widgets/more_like_this.dart';
 import 'package:mova_app/screens/detail/widgets/trailer.dart';
 import 'package:mova_app/utils/app_color.dart';
+import 'Widgets/comments.dart';
 import 'dart:ui';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -40,11 +40,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
               Image.network('https://picsum.photos/800/600', fit: BoxFit.cover),
         ),
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.center,
               end: Alignment.bottomCenter,
-              colors: [Colors.transparent, AppColors.kPrimary],
+              colors: [Colors.transparent, Color(0xCC000000)],
             ),
           ),
         ),
@@ -52,12 +52,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           top: 40,
           left: 12,
           child: Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
               color: Colors.black45,
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.cast, color: AppColors.kTextColor),
+            child: const Icon(Icons.cast, color: Colors.white),
           ),
         ),
       ],
@@ -67,10 +67,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
   // ===== TITLE =====
   Widget _buildTitleRow() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-         Expanded(
+          const Expanded(
             child: Text(
               'Avatar: The Way of Water',
               style: TextStyle(
@@ -83,11 +83,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
 
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.bookmark_border, color: Colors.white70),
+            icon: const Icon(Icons.bookmark_border, color: Colors.white70),
           ),
           IconButton(
             onPressed: () => showShareSheet(context),
-            icon: Icon(Icons.send, color: Colors.white70),
+            icon: const Icon(Icons.send, color: Colors.white70),
           ),
         ],
       ),
@@ -110,13 +110,16 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
               maxChildSize: 0.80,
               builder: (context, controller) {
                 return Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.kPrimary,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF191A1F),
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(26),
                     ),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 22,
+                    vertical: 18,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -125,14 +128,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                           height: 5,
                           width: 45,
                           decoration: BoxDecoration(
-                            color: AppColors.kTextColor.withValues(alpha: 0.15),
+                            color: AppColors.kTextColor.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
 
-                      Center(
+                      const Center(
                         child: Text(
                           'Give Rating',
                           style: TextStyle(
@@ -149,11 +152,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 '9.8',
                                 style: TextStyle(
-                                  color: AppColors.kTextColor,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 36,
                                 ),
@@ -176,7 +179,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                               ),
                             ],
                           ),
-                          SizedBox(width: 28),
+                          const SizedBox(width: 28),
                           Expanded(
                             child: Column(
                               children: List.generate(5, (i) {
@@ -184,17 +187,19 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                 double width = [1.0, 0.7, 0.3, 0.2, 0.1][i];
 
                                 return Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 3),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 3,
+                                  ),
                                   child: Row(
                                     children: [
                                       Text(
                                         "$star",
-                                        style: TextStyle(
-                                          color: AppColors.kTextColor,
+                                        style: const TextStyle(
+                                          color: Colors.white,
                                           fontSize: 12,
                                         ),
                                       ),
-                                      SizedBox(width: 6),
+                                      const SizedBox(width: 6),
                                       Expanded(
                                         child: Container(
                                           height: 5,
@@ -209,7 +214,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                             alignment: Alignment.centerLeft,
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: AppColors.kSecondary,
+                                                color: Color(0xFFE21220),
                                                 borderRadius:
                                                     BorderRadius.circular(3),
                                               ),
@@ -226,7 +231,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                         ],
                       ),
 
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
 
                       // ====== CLICKABLE STAR ======
                       Row(
@@ -241,12 +246,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                               });
                             },
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                              ),
                               child: Icon(
                                 selectedRating >= starIndex
                                     ? Icons.star
                                     : Icons.star_border,
-                                color: AppColors.kSecondary,
+                                color: Colors.redAccent,
                                 size: 36,
                               ),
                             ),
@@ -254,7 +261,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                         }),
                       ),
 
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
 
                       // ===== BUTTONS =====
                       Row(
@@ -263,23 +270,25 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                             child: GestureDetector(
                               onTap: () => Navigator.pop(context),
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white12,
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 alignment: Alignment.center,
-                                child: Text(
+                                child: const Text(
                                   'Cancel',
                                   style: TextStyle(
-                                    color: AppColors.kTextColor,
+                                    color: Colors.white,
                                     fontSize: 15,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(width: 14),
+                          const SizedBox(width: 14),
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
@@ -292,21 +301,23 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                     content: Text(
                                       "Thank you! You rated $selectedRating stars ❤️",
                                     ),
-                                    backgroundColor: AppColors.kSecondary,
+                                    backgroundColor: Colors.redAccent,
                                   ),
                                 );
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 14),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 14,
+                                ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.kSecondary,
+                                  color: const Color(0xFFE21220),
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 alignment: Alignment.center,
-                                child: Text(
+                                child: const Text(
                                   'Submit',
                                   style: TextStyle(
-                                    color: AppColors.kTextColor,
+                                    color: Colors.white,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -328,29 +339,30 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
 
   Widget _buildChips() {
     Widget chip(String label) => Container(
-      margin: EdgeInsets.only(right: 8),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.white24),
       ),
-      child: Text(label, style: TextStyle(fontSize: 12)),
+      child: Text(label, style: const TextStyle(fontSize: 12, color: Colors.white)),
     );
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Row(
+        // TODO : Jadiin childern di bawah ini putih semua
         children: [
-          Icon(Icons.star, color: Color(0xFFE21220), size: 18),
-          SizedBox(width: 6),
+          const Icon(Icons.star, color: AppColors.kSecondary, size: 18),
+          const SizedBox(width: 6),
           GestureDetector(
             onTap: () => _showRatingSheet(context),
             child: const Text(
               '9.8',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              style: TextStyle(color: AppColors.kTextColor, fontWeight: FontWeight.w600, fontSize: 15),
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           chip('2022'),
           chip('13+'),
           chip('United States'),
@@ -363,21 +375,21 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
   // ===== PLAY BUTTON =====
   Widget _buildActionButton() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Row(
         children: [
           Expanded(
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.kSecondary,
-                padding: EdgeInsets.symmetric(vertical: 14),
+                padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               onPressed: () {},
-              icon: Icon(Icons.play_arrow, color: Colors.white),
-              label: Text(
+              icon: const Icon(Icons.play_arrow, color: Colors.white),
+              label: const Text(
                 'Play',
                 style: TextStyle(
                   fontSize: 16,
@@ -387,21 +399,28 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
               ),
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: OutlinedButton.icon(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: AppColors.kSecondary),
-                padding: EdgeInsets.symmetric(vertical: 14),
+                side: const BorderSide(color: AppColors.kSecondary),
+                padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               onPressed: () {},
-              icon: Icon(Icons.download_outlined),
-              label: Text(
+              icon: const Icon(
+                Icons.download_outlined,
+                color: AppColors.kTextColor,
+              ),
+              label: const Text(
                 'Download',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: AppColors.kTextColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -412,18 +431,19 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
 
   // ===== SYNOPSIS =====
   Widget _buildSynopsis() {
-    return Padding(
+    return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Genre: Action, Superhero, Science Fiction, Romance, Thriller...",
+            style: TextStyle(color: AppColors.kTextColor),
           ),
           SizedBox(height: 8),
           Text(
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-            style: TextStyle(height: 1.3),
+            style: TextStyle(height: 1.3, color: AppColors.kTextColor),
           ),
         ],
       ),
@@ -438,14 +458,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           radius: 24,
           backgroundImage: NetworkImage("https://picsum.photos/seed/$name/200"),
         ),
-        SizedBox(height: 6),
-        Text(name, style: TextStyle(fontSize: 12)),
-        Text(role, style: TextStyle(color: Colors.white54)),
+        const SizedBox(height: 6),
+        Text(name, style: const TextStyle(fontSize: 12, color: AppColors.kTextColor)),
+        Text(role, style: const TextStyle(color: Colors.white54)),
       ],
     );
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -466,13 +486,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
       unselectedLabelColor: Colors.white70,
       indicatorColor: AppColors.kSecondary,
 
-      labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      unselectedLabelStyle: TextStyle(
+      labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      unselectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w600, // sedikit lebih ringan dari bold
         fontSize: 15,
       ),
 
-      tabs: [
+      tabs: const [
         Tab(text: "Trailers"),
         Tab(text: "More Like This"),
         Tab(text: "Comments"),
@@ -484,13 +504,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
   void showShareSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.kPrimary,
-      shape: RoundedRectangleBorder(
+      backgroundColor: const Color(0xFF191A1F),
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
       builder: (_) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -498,25 +518,25 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
               Container(
                 width: 50,
                 height: 5,
-                margin: EdgeInsets.only(bottom: 16),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: Colors.white24,
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
 
-              Text(
+              const Text(
                 "Send to",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               GridView.count(
                 crossAxisCount: 4,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 childAspectRatio: 0.78,
-                children: [
+                children: const [
                   _ShareIcon(icon: Icons.wechat_sharp, label: "WhatsApp"),
                   _ShareIcon(icon: Icons.chat, label: "Twitter"),
                   _ShareIcon(icon: Icons.facebook, label: "Facebook"),
@@ -527,7 +547,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                   _ShareIcon(icon: Icons.tiktok, label: "TikTok"),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             ],
           ),
         );
@@ -579,12 +599,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
             ListView(
               padding: const EdgeInsets.all(16),
               children: const [
-                TrailerCard(title: "Official Trailer 1", duration: "2m 34s"),
+                TrailerCard(title: "Trailer 3: Final", duration: "1m 45s"),
                 SizedBox(height: 14),
-                TrailerCard(title: "Official Trailer 2", duration: "1m 24s"),
+                TrailerCard(title: "Trailer 2", duration: "1m 24s"),
               ],
             ),
-            // ListView(
 
             // MORE LIKE THIS
             GridView.count(
@@ -620,11 +639,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                 CommentTile(
                   name: "Kristin Watson",
                   text: "Lorem ipsum dolor sit amet...",
+                  color: AppColors.kTextColor,
                 ),
                 SizedBox(height: 12),
                 CommentTile(
                   name: "John Doe",
-                  text: "Great visuals and soundtrack!",
+                  text: "Great visuals and soundtrack!" ,
+                  color: AppColors.kTextColor,
                 ),
               ],
             ),
@@ -671,8 +692,8 @@ class _ShareIcon extends StatelessWidget {
           radius: 28,
           child: Icon(icon, size: 26, color: Colors.white),
         ),
-        SizedBox(height: 6),
-        Text(label, style: TextStyle(fontSize: 12)),
+        const SizedBox(height: 6),
+        Text(label, style: const TextStyle(fontSize: 12)),
       ],
     );
   }

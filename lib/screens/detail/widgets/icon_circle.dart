@@ -9,7 +9,7 @@ class IconCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Colors.black45, shape: BoxShape.circle),
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Icon(icon, color: AppColors.kTextColor),
     );
   }

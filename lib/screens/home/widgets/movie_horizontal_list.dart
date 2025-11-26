@@ -7,12 +7,14 @@ class MovieHorizontalList extends StatelessWidget {
   final String title;
   final List<Movie> movies;
   final VoidCallback? onSeeAll;
+  final Function(Movie) onMovieTap;
 
   const MovieHorizontalList({
     super.key,
     required this.title,
     required this.movies,
     this.onSeeAll,
+    required this.onMovieTap,
   });
 
   @override
@@ -45,7 +47,7 @@ class MovieHorizontalList extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                )
+                ),
             ],
           ),
         ),
@@ -57,9 +59,13 @@ class MovieHorizontalList extends StatelessWidget {
           height: 220,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemBuilder: (_, i) {
-              final movie = movies[i];
-              return MoviePosterItem(movie: movie);
+            itemBuilder: (context, index) {
+              final movie = movies[index];
+
+              return MoviePosterItem(
+                movie: movie,
+                onTap: () => onMovieTap(movie),
+              );
             },
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemCount: movies.length,

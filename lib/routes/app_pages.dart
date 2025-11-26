@@ -1,13 +1,33 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mova_app/screens/detail/detail_screen.dart';
 import 'package:mova_app/screens/home/home_screen.dart';
 import 'package:mova_app/screens/popular/popular_screen.dart';
-import 'app_routes.dart';
+
+part 'app_routes.dart';
 
 class AppPages {
-  static Map<String, WidgetBuilder> routes = {
-    AppRoutes.home: (_) => HomeScreen(),
-    AppRoutes.details: (_) => MovieDetailsScreen(),
-    AppRoutes.popular: (_) => PopularScreen(movies: []),
-  };
+  AppPages._();
+
+  // INITIAL = screen pertama yang muncul saat apliaksi dibuka
+  static const INITIAL = Routes.MOVIE_DETAIL;
+
+   static final routes  = [
+    // GetPage(
+    //   name: _Paths.SPLASH,
+    //   page: () => SplashScreen()
+    // ),
+    // GetPage(
+    //   name: _Paths.HOME,
+    //   page: () => HomeScreen(),
+    // ),
+    GetPage(
+      name: _Paths.MOVIE_DETAIL,
+      page: () => MovieDetailsScreen(),
+    ),
+   ];
 }
+
+// GetPage(
+//       name: _Paths.MOVIE_DETAIL,
+//       page: () => MovieDetailsScreen(movie: Get.arguments),
+//     ),

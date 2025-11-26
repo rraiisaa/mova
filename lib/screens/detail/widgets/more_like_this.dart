@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class MoreLikeThisCard extends StatelessWidget {
   final int index;
@@ -17,18 +18,18 @@ class MoreLikeThisCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 8),
-        Text('Movie Title', style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(height: 4),
+        const SizedBox(height: 8),
+        const Text('Movie Title', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.kTextColor)),
+        const SizedBox(height: 4),
         Row(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.black54),
-              child: Text('9.7', style: TextStyle(fontSize: 12)),
+              child: const Text('9.7', style: TextStyle(fontSize: 12, color: Colors.white54)),
             ),
-            SizedBox(width: 8),
-            Text('1h 45m', style: TextStyle(fontSize: 12, color: Colors.white54)),
+            const SizedBox(width: 8),
+            const Text('1h 45m', style: TextStyle(fontSize: 12, color: Colors.white54)),
           ],
         )
       ],

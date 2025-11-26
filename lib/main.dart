@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mova_app/screens/detail/detail_screen.dart';
+import 'package:get/get.dart'; 
+import 'package:mova_app/routes/app_pages.dart';
+import 'package:mova_app/screens/home/home_screen.dart';
 
+//theme colors
+const Color kPrimary = Color(0xFF191A1F);
+const Color kSecondary = Color(0xFFE21220);
+const Color kTextColor = Color(0xFFFFFFFF);
 
 void main() {
   runApp(const MovaApp());
@@ -11,13 +17,16 @@ class MovaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Mova',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MovieDetailsScreen(),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+      //   useMaterial3: true,
+      // ),
+
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,   
     );
   }
 }
