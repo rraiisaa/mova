@@ -42,7 +42,6 @@ class Movie {
     );
   }
 
-  /// ---- MAPPING BACK TO JSON (optional) ----
   Map<String, dynamic> toJson() {
     return {
       'id': id,

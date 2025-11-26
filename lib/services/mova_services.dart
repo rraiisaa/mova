@@ -4,7 +4,7 @@ import '../models/mova_model.dart';
 
 class MovieServices {
   static const String _baseUrl = "https://api.themoviedb.org/3";
-  static const String _apiKey = "API_AKU";   // GANTI API DISINI
+  static const String _apiKey = "b9ea3027a8231dc54d52fc2e2ce92429";   // GANTI API DISINI
 
   /// POPULAR MOVIES
   Future<List<Movie>> getPopularMovies() async {

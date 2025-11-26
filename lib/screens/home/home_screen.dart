@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/core/api.dart';
 import 'package:mova_app/models/mova_model.dart';
+import 'package:mova_app/routes/app_pages.dart';
 import 'package:mova_app/screens/detail/detail_screen.dart';
 import 'package:mova_app/screens/home/widgets/home_header.dart';
 import 'package:mova_app/screens/home/widgets/movie_horizontal_list.dart';
@@ -35,10 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppColors.kPrimary,
 
-      bottomNavigationBar: MovaBottomNav(
+       bottomNavigationBar: MovaBottomNav(
         currentIndex: _selectedIndex,
         onTap: (i) {
           setState(() => _selectedIndex = i);
+          // tambahkan navigasi
+          if (i == 0) {
+            ;
+          } else if (i == 1) {
+            Navigator.pushReplacementNamed(context, Routes.EXPLORE);
+          } else if (i == 2) {
+            Navigator.pushReplacementNamed(context, '/saved');
+          } else if (i == 3) {
+            Navigator.pushReplacementNamed(context, '/profile');
+          }
         },
       ),
 
@@ -48,9 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // =======================
-              // UPCOMING HEADER
-              // =======================
+              // upcoming header
               FutureBuilder<List<Movie>>(
                 future: upcoming,
                 builder: (context, snapshot) {
@@ -76,9 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 18),
 
-              // =======================
-              // POPULAR SECTION
-              // =======================
+              // popular section
               FutureBuilder<List<Movie>>(
                 future: popular,
                 builder: (context, snapshot) {
@@ -126,9 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 20),
 
-              // =======================
-              // TOP RATED SECTION
-              // =======================
+              // top rated section
               FutureBuilder<List<Movie>>(
                 future: topRated,
                 builder: (context, snapshot) {

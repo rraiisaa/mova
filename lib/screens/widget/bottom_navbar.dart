@@ -19,6 +19,8 @@ class MovaBottomNav extends StatelessWidget {
       onTap: onTap,
       selectedItemColor: AppColors.kSecondary,
       unselectedItemColor: Colors.white70,
+       showSelectedLabels: false,
+      showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
