@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart'; 
 import 'package:mova_app/routes/app_pages.dart';
 import 'package:mova_app/screens/home/home_screen.dart';
-
-//theme colors
-const Color kPrimary = Color(0xFF191A1F);
-const Color kSecondary = Color(0xFFE21220);
-const Color kTextColor = Color(0xFFFFFFFF);
+import 'package:mova_app/utils/app_color.dart';
 
 void main() {
   runApp(const MovaApp());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class FilterChipItem extends StatelessWidget {
   final String text;
@@ -21,17 +22,17 @@ class FilterChipItem extends StatelessWidget {
   padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
   margin: EdgeInsets.only(right: 10, bottom: 10),
   decoration: BoxDecoration(
-    color: selected ? Colors.red : Colors.transparent,
+    color: selected ? AppColors.kSecondary : Colors.transparent,
     borderRadius: BorderRadius.circular(20),
     border: Border.all(
-      color: selected ? Colors.transparent : Colors.red,
+      color: selected ? Colors.transparent : AppColors.kSecondary,
       width: 1,
     ),
   ),
   child: Text(
     text,
     style: TextStyle(
-      color: selected ? Colors.white : Colors.red,
+      color: selected ? AppColors.kTextColor : AppColors.kSecondary,
       fontWeight: FontWeight.w600,
       fontSize: 14,
     ),

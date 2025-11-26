@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class FilterButton extends StatelessWidget {
   const FilterButton({super.key});
@@ -7,11 +8,11 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFF281920),
+        color: AppColors.kPrimary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: IconButton(
-        icon: Icon(Icons.filter_list_rounded, color: Colors.red),
+        icon: Icon(Icons.filter_list_rounded, color: AppColors.kSecondary),
         onPressed: () {},
       ),
     );

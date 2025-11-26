@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class SelectedFilterChips extends StatelessWidget {
   final List<String> selectedFilters;
@@ -22,12 +23,12 @@ class SelectedFilterChips extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             margin: EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: AppColors.kSecondary,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               f,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: AppColors.kTextColor),
             ),
           );
         }).toList(),

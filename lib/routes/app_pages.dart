@@ -12,7 +12,7 @@ class AppPages {
   // AppPages._();
 
   // INITIAL = screen pertama yang muncul saat apliaksi dibuka
-  static const INITIAL = Routes.EXPLORE;
+  static const INITIAL = Routes.SPLASH;
 
    static final routes  = [
     GetPage(

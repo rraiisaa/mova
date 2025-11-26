@@ -380,8 +380,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           const SizedBox(width: 6),
           GestureDetector(
             onTap: () => _showRatingSheet(context),
-            child: const Text(
-              '9.8',
+            child: Text(
+              "${widget.movie.voteAverage?.toStringAsFixed(1)}",
               style: TextStyle(
                 color: AppColors.kTextColor,
                 fontWeight: FontWeight.w600,

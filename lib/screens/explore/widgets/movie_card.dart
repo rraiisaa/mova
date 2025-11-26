@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class MovieCard extends StatelessWidget {
   final String rating;
@@ -15,7 +16,7 @@ class MovieCard extends StatelessWidget {
         ClipRRect(
           borderRadius: radius,
           child: Container(
-            decoration: BoxDecoration(color: Colors.black),
+            decoration: BoxDecoration(color: AppColors.kPrimary),
             child: Image.network(
               imagePath,
               fit: BoxFit.cover,
@@ -33,13 +34,13 @@ class MovieCard extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.redAccent,
+              color: AppColors.kSecondary,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               rating,
               style: TextStyle(
-                color: Colors.white,
+                color: AppColors.kTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

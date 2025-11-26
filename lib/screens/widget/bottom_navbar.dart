@@ -19,24 +19,34 @@ class MovaBottomNav extends StatelessWidget {
       onTap: onTap,
       selectedItemColor: AppColors.kSecondary,
       unselectedItemColor: Colors.white70,
-       showSelectedLabels: false,
-      showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
+
+      // supaya label muncul
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined),
+          icon: currentIndex == 0
+              ? Icon(Icons.home)
+              : Icon(Icons.home_outlined),
           label: "Home",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.explore_outlined),
+          icon: currentIndex == 1
+              ? Icon(Icons.explore)
+              : Icon(Icons.explore_outlined),
           label: "Explore",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark_outline),
+          icon: currentIndex == 2
+              ? Icon(Icons.bookmark)
+              : Icon(Icons.bookmark_outline),
           label: "My List",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline),
+          icon: currentIndex == 3
+              ? Icon(Icons.person)
+              : Icon(Icons.person_outline),
           label: "Profile",
         ),
       ],

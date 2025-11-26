@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:mova_app/utils/app_color.dart';
+
 class CustomLoader extends StatefulWidget {
   const CustomLoader({super.key});
 
@@ -55,7 +57,7 @@ class _CustomLoaderState extends State<CustomLoader>
                 width: 15,
                 height: 10,
                 decoration: BoxDecoration(
-                  color: Colors.redAccent,
+                  color: AppColors.kSecondary,
                   shape: BoxShape.circle,
                 ),
               ),

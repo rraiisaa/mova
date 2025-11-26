@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 import 'filter_chip_item.dart';
 
 class FilterBottomSheet extends StatefulWidget {
@@ -43,7 +44,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
       decoration: BoxDecoration(
-        color: Color(0xFF16161A),
+        color: AppColors.kPrimary,
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
       ),
       child: SingleChildScrollView(
@@ -64,7 +65,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             Text(
               "Sort & Filter",
               style: TextStyle(
-                color: Colors.red,
+                color: AppColors.kSecondary,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
@@ -86,7 +87,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Color(0xFF2C2C30),
+                        color: AppColors.kPrimary,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Center(
@@ -108,14 +109,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: AppColors.kSecondary,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Center(
                         child: Text(
                           "Apply",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.kTextColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -140,7 +141,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
         Text(
           title,
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.kTextColor,
             fontSize: 18,
             fontWeight: FontWeight.w700,
           ),

@@ -41,7 +41,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               decoration: BoxDecoration(
                 color: isFocused
                     ? AppColors.kPrimary
-                    : Color(0xFF1A1A1D),
+                    : Colors.black45,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
                   color: isFocused ? AppColors.kSecondary : Colors.transparent,

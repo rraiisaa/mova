@@ -7,6 +7,7 @@ import 'package:mova_app/screens/home/widgets/home_header.dart';
 import 'package:mova_app/screens/home/widgets/movie_horizontal_list.dart';
 import 'package:mova_app/screens/popular/popular_screen.dart';
 import 'package:mova_app/screens/widget/bottom_navbar.dart';
+import 'package:mova_app/screens/widget/custom_loader.dart';
 import 'package:mova_app/utils/app_color.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -66,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const SizedBox(
                       height: 260,
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CustomLoader()),
                     );
                   }
 
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const SizedBox(
                       height: 220,
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CustomLoader()),
                     );
                   }
 
@@ -140,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const SizedBox(
                       height: 220,
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CustomLoader()),
                     );
                   }
 

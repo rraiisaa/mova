@@ -6,6 +6,7 @@ import 'package:mova_app/screens/explore/widgets/movie_card.dart';
 import 'package:mova_app/screens/explore/widgets/search_bar.dart';
 import 'package:mova_app/screens/explore/widgets/selected_filter_chip.dart';
 import 'package:mova_app/screens/widget/bottom_navbar.dart';
+import 'package:mova_app/screens/widget/custom_loader.dart';
 import 'package:mova_app/services/mova_services.dart';
 import 'package:mova_app/models/mova_model.dart';
 import 'package:mova_app/utils/app_color.dart';
@@ -103,11 +104,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               Expanded(
                 child: isLoading
                     ? Center(
-                        child: Lottie.asset(
-                          'assets/lottie/loading.json',
-                          width: 200,
-                          height: 200,
-                        ),
+                        child: const CustomLoader()
                       )
                     : filtered.isEmpty
                     ? Center(
@@ -123,7 +120,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             Text(
                               'Not Found',
                               style: TextStyle(
-                                color: Colors.red,
+                                color: AppColors.kSecondary,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),

@@ -38,7 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           /// BACKGROUND FIX — pakai IgnorePointer supaya gesture tidak tertahan
           Container(
-            color: Colors.black,
+            color: AppColors.kPrimary,
             child: SafeArea(
               child: IgnorePointer(
                 child: FloatingVertical(
@@ -84,8 +84,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Color(0xFF0F0F12),
-                    Color(0xFF0F0F12),
+                    AppColors.kPrimary,
+                    AppColors.kPrimary,
                   ],
                 ),
               ),
@@ -106,7 +106,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     contents[index]["title"]!,
                     style: const TextStyle(
                       fontSize: 28,
-                      color: Colors.white,
+                      color: AppColors.kTextColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -137,7 +137,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   width: _currentIndex == index ? 25 : 10,
                   decoration: BoxDecoration(
                     color: _currentIndex == index
-                        ? Colors.redAccent
+                        ? AppColors.kSecondary
                         : Colors.white38,
                     borderRadius: BorderRadius.circular(20),
                   ),
