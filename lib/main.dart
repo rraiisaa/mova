@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; 
 import 'package:mova_app/routes/app_pages.dart';
-import 'package:mova_app/screens/home/home_screen.dart';
-import 'package:mova_app/utils/app_color.dart';
 
 void main() {
   runApp(const MovaApp());

@@ -9,7 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:ui';
 
 class MovieDetailsScreen extends StatefulWidget {
-  final Movie movie; // terima data dari home
+  final Movie
+  movie; // Menerima data Movie dari screen sebelumnya (home / explore).
 
   const MovieDetailsScreen({super.key, required this.movie});
 
@@ -19,25 +20,27 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  List<String> genres = [];
-  String? trailerKey;
+  late TabController
+  _tabController; // TabController untuk mengatur TabBar (Trailers, More Like This, Comments).
+  List<String> genres = []; // Menyimpan genre film yang diambil dari API.
+  String? trailerKey; // Menyimpan kunci trailer film yang diambil dari API.
 
   @override
   void initState() {
+    // panggil api (fetch genres & trailer) saat inisialisasi state
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     loadMovieDetails();
   }
 
+  // ambil genre film & trailer dari API
   Future<void> loadMovieDetails() async {
     genres = await MovieServices.fetchGenres(widget.movie.id);
     trailerKey = await MovieServices().getMovieTrailerKey(
       widget.movie.id,
       widget.movie.mediaType,
     );
-    setState(() {});
+    setState(() {}); // setState() supaya UI update.
   }
 
   @override
@@ -417,24 +420,25 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
               onPressed: () async {
                 final trailerKey = await MovieServices().getMovieTrailerKey(
                   widget.movie.id,
-                  "en-US",
+                  widget.movie.mediaType,
                 );
 
-                if (trailerKey != null) {
-                  final url = Uri.parse(
-                    "https://www.youtube.com/watch?v=$trailerKey",
-                  );
-
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url, mode: LaunchMode.externalApplication);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Could not launch trailer")),
-                    );
-                  }
-                } else {
+                if (trailerKey == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Trailer not available")),
+                  );
+                  return;
+                }
+
+                final url = Uri.parse(
+                  "https://www.youtube.com/watch?v=$trailerKey",
+                );
+                // ganti canLaunch dengan launchUrl biar langsung launch, kalau gagal baru catch error.
+                try {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Could not launch trailer")),
                   );
                 }
               },

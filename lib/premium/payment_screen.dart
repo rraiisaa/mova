@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mova_app/premium/add_new_card_screen.dart';
 import 'package:mova_app/premium/review_summary_screen.dart';
 import 'package:mova_app/premium/widgets/payment_option.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class PaymentScreen extends StatefulWidget {
   final String price;
@@ -22,15 +23,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF141417),
+      backgroundColor: AppColors.kPrimary,
 
       appBar: AppBar(
-        backgroundColor: const Color(0xFF141417),
+        backgroundColor: AppColors.kPrimary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.white,
+            color: AppColors.kTextColor,
             size: 20,
           ),
           onPressed: () => Navigator.pop(context),
@@ -39,7 +40,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           IconButton(
             icon: const Icon(
               Icons.qr_code_scanner_rounded,
-              color: Colors.white,
+              color: AppColors.kTextColor,
               size: 26,
             ),
             onPressed: () {},
@@ -70,7 +71,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               "You are subscribing to Premium (${widget.type} • \$${widget.price})",
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.white.withOpacity(0.55),
+                color: AppColors.kTextColor.withValues(alpha: 0.55),
               ),
             ),
 
@@ -81,7 +82,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                color: Colors.white.withOpacity(0.88),
+                color: AppColors.kTextColor.withValues(alpha: 0.88),
               ),
             ),
 
@@ -170,7 +171,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: Text(
                   "Add New Card",
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.72),
+                    color: AppColors.kTextColor.withValues(alpha: 0.72),
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
                   ),
@@ -224,8 +225,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       },
 
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE21220),
-                  disabledBackgroundColor: Colors.red.withOpacity(0.3),
+                  backgroundColor: AppColors.kSecondary,
+                  disabledBackgroundColor: AppColors.kSecondary.withOpacity(0.3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -236,8 +237,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     fontSize: 18,
                     fontWeight: FontWeight.w800,
                     color: selectedMethod == -1
-                        ? Colors.white.withOpacity(0.55)
-                        : Colors.white,
+                        ? AppColors.kTextColor.withValues(alpha: 0.55)
+                        : AppColors.kTextColor,
                   ),
                 ),
               ),

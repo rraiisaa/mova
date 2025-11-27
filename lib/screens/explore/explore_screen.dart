@@ -12,6 +12,7 @@ import 'package:mova_app/models/mova_model.dart';
 import 'package:mova_app/utils/app_color.dart';
 
 class ExploreScreen extends StatefulWidget {
+  
   const ExploreScreen({super.key});
 
   @override
@@ -152,9 +153,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             rating: movie.voteAverage.toStringAsFixed(1),
                             imagePath:
                                 "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.MOVIE_DETAIL,
+                                arguments: movie, // <--- KIRIM DATA MOVIE
+                              );
+                            },
                           );
                         },
                       ),
+            
               ),
             ],
           ),
