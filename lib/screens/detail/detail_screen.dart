@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/models/mova_model.dart';
-import 'package:mova_app/screens/detail/widgets/more_like_this.dart';
 import 'package:mova_app/screens/detail/widgets/trailer.dart';
+import 'package:mova_app/screens/widgets/custom_loader.dart';
 import 'package:mova_app/services/mova_services.dart';
 import 'package:mova_app/utils/app_color.dart';
 import 'Widgets/comments.dart';
@@ -20,27 +20,48 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen>
     with SingleTickerProviderStateMixin {
-  late TabController
-  _tabController; // TabController untuk mengatur TabBar (Trailers, More Like This, Comments).
+  late TabController _tabController; // TabController untuk mengatur TabBar.
   List<String> genres = []; // Menyimpan genre film yang diambil dari API.
   String? trailerKey; // Menyimpan kunci trailer film yang diambil dari API.
 
+  List<Movie> similarMovies = []; // Menyimpan "more like this" dari API
+  bool isDetailsLoading = true; // true saat genres/similar sedang dimuat
+
   @override
   void initState() {
-    // panggil api (fetch genres & trailer) saat inisialisasi state
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     loadMovieDetails();
   }
 
-  // ambil genre film & trailer dari API
+  // ambil genre film, trailer, dan similar movies dari API
   Future<void> loadMovieDetails() async {
-    genres = await MovieServices.fetchGenres(widget.movie.id);
-    trailerKey = await MovieServices().getMovieTrailerKey(
-      widget.movie.id,
-      widget.movie.mediaType,
-    );
-    setState(() {}); // setState() supaya UI update.
+    try {
+      // fetch in parallel
+      final genresFuture = MovieServices.fetchGenres(widget.movie.id);
+      final trailerFuture = MovieServices().getMovieTrailerKey(
+        widget.movie.id,
+        widget.movie.mediaType,
+      );
+      final similarFuture = MovieServices().getSimilarMovies(widget.movie.id);
+
+      final results = await Future.wait([
+        genresFuture,
+        trailerFuture,
+        similarFuture,
+      ]);
+
+      genres = results[0] as List<String>;
+      trailerKey = results[1] as String?;
+      similarMovies = results[2] as List<Movie>;
+    } catch (e) {
+      // kalau error, kita tetap update UI (tampilkan fallback)
+      debugPrint("loadMovieDetails error: $e");
+    } finally {
+      setState(() {
+        isDetailsLoading = false;
+      });
+    }
   }
 
   @override
@@ -66,7 +87,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
             gradient: LinearGradient(
               begin: Alignment.center,
               end: Alignment.bottomCenter,
-              colors: [Colors.transparent, Color(0xCC000000)],
+              colors: [Colors.transparent, AppColors.kPrimary],
             ),
           ),
         ),
@@ -76,10 +97,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: const BoxDecoration(
-              color: Colors.black45,
+              color: AppColors.kAdded,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.cast, color: Colors.white),
+            child: const Icon(Icons.cast, color: AppColors.kTextColor),
           ),
         ),
       ],
@@ -133,7 +154,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
               builder: (context, controller) {
                 return Container(
                   decoration: const BoxDecoration(
-                    color: Color(0xFF191A1F),
+                    color: AppColors.kAdded,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(26),
                     ),
@@ -150,7 +171,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                           height: 5,
                           width: 45,
                           decoration: BoxDecoration(
-                            color: AppColors.kTextColor.withOpacity(0.15),
+                            color: AppColors.kTextColor.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -218,7 +239,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                       Text(
                                         "$star",
                                         style: const TextStyle(
-                                          color: Colors.white,
+                                          color: AppColors.kTextColor,
                                           fontSize: 12,
                                         ),
                                       ),
@@ -237,7 +258,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                             alignment: Alignment.centerLeft,
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                color: Color(0xFFE21220),
+                                                color: AppColors.kSecondary,
                                                 borderRadius:
                                                     BorderRadius.circular(3),
                                               ),
@@ -276,7 +297,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                 selectedRating >= starIndex
                                     ? Icons.star
                                     : Icons.star_border,
-                                color: Colors.redAccent,
+                                color: AppColors.kSecondary,
                                 size: 36,
                               ),
                             ),
@@ -304,7 +325,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                 child: const Text(
                                   'Cancel',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: AppColors.kTextColor,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -322,9 +343,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      "Thank you! You rated $selectedRating stars ❤️",
+                                      "Thank you! You rated $selectedRating stars",
                                     ),
-                                    backgroundColor: Colors.redAccent,
+                                    backgroundColor: AppColors.kSecondary,
                                   ),
                                 );
                               },
@@ -333,14 +354,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                                   vertical: 14,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFFE21220),
+                                  color: AppColors.kSecondary,
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 alignment: Alignment.center,
                                 child: const Text(
                                   'Submit',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: AppColors.kTextColor,
                                     fontSize: 15,
                                   ),
                                 ),
@@ -370,14 +391,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
       ),
       child: Text(
         label,
-        style: const TextStyle(fontSize: 12, color: Colors.white),
+        style: const TextStyle(fontSize: 12, color: AppColors.kTextColor),
       ),
     );
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Row(
-        // TODO : Jadiin childern di bawah ini putih semua
         children: [
           const Icon(Icons.star, color: AppColors.kSecondary, size: 18),
           const SizedBox(width: 6),
@@ -393,6 +413,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
             ),
           ),
           const SizedBox(width: 12),
+
+          // KEEP existing small static chips (year, age, country, subtitle) if you want
           chip('2022'),
           chip('13+'),
           chip('United States'),
@@ -433,7 +455,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                 final url = Uri.parse(
                   "https://www.youtube.com/watch?v=$trailerKey",
                 );
-                // ganti canLaunch dengan launchUrl biar langsung launch, kalau gagal baru catch error.
                 try {
                   await launchUrl(url, mode: LaunchMode.externalApplication);
                 } catch (e) {
@@ -443,13 +464,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                 }
               },
 
-              icon: const Icon(Icons.play_arrow, color: Colors.white),
+              icon: const Icon(Icons.play_arrow, color: AppColors.kTextColor),
               label: const Text(
                 'Play',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: AppColors.kTextColor,
                 ),
               ),
             ),
@@ -486,13 +507,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
 
   // ===== SYNOPSIS =====
   Widget _buildSynopsis() {
+    // show genres dynamically (fallback to static text if still loading or empty)
+    final genreText = isDetailsLoading
+        ? "Loading genres..."
+        : (genres.isNotEmpty ? genres.join(', ') : "No genres available");
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Genre: Action, Superhero, Science Fiction, Romance, Thriller...",
+            "Genre: $genreText",
             style: TextStyle(color: AppColors.kTextColor),
           ),
           SizedBox(height: 8),
@@ -514,9 +540,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           backgroundImage: NetworkImage("https://picsum.photos/seed/$name/200"),
         ),
         const SizedBox(height: 6),
-        Text(
-          name,
-          style: const TextStyle(fontSize: 12, color: AppColors.kTextColor),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            name,
+            style: const TextStyle(fontSize: 12, color: AppColors.kTextColor, ),
+          ),
         ),
         Text(role, style: const TextStyle(color: Colors.white54)),
       ],
@@ -526,9 +555,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          person("James Cameron", "Director"),
-          person("Sam Worthington", "Cast"),
+          person("James \n Cameron", "Director"),
+          person("Sam  \n Worthington", "Cast"),
           person("Zoe Saldana", "Cast"),
           person("Sigourney", "Cast"),
         ],
@@ -562,7 +592,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
   void showShareSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: const Color(0xFF191A1F),
+      backgroundColor: AppColors.kAdded,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
@@ -616,13 +646,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
+      backgroundColor: AppColors.kPrimary,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             expandedHeight: 340,
             pinned: true,
-            backgroundColor: const Color(0xFF121212),
+            backgroundColor: AppColors.kPrimary,
             flexibleSpace: FlexibleSpaceBar(background: _buildPoster()),
           ),
 
@@ -674,14 +704,68 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                   ),
 
             // MORE LIKE THIS
-            GridView.count(
-              padding: const EdgeInsets.all(16),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.62,
-              children: List.generate(6, (i) => MoreLikeThisCard(index: i)),
-            ),
+            // jika masih loading -> tampil loader kecil
+            isDetailsLoading
+                ? Center(child: CustomLoader())
+                : (similarMovies.isEmpty
+                      ? Center(
+                          child: Text(
+                            "No similar movies found",
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                        )
+                      : GridView.count(
+                          padding: const EdgeInsets.all(16),
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 0.62,
+                          children: similarMovies.map((m) {
+                            return GestureDetector(
+                              onTap: () {
+                                // buka detail untuk movie yg diklik
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        MovieDetailsScreen(movie: m),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(
+                                      "https://image.tmdb.org/t/p/w500${m.posterPath}",
+                                      height: 160,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (_, __, ___) => Container(
+                                        height: 160,
+                                        color: Colors.white12,
+                                        child: Icon(
+                                          Icons.broken_image,
+                                          color: Colors.white24,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    m.title,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: AppColors.kTextColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        )),
 
             // COMMENTS
             ListView(
@@ -695,6 +779,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
+                        color: AppColors.kTextColor
                       ),
                     ),
                     Text(
@@ -737,7 +822,7 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(context, shrinkOffset, overlapsContent) {
-    return Container(color: const Color(0xFF121212), child: tabBar);
+    return Container(color: AppColors.kAdded, child: tabBar);
   }
 
   @override
@@ -758,7 +843,7 @@ class _ShareIcon extends StatelessWidget {
         CircleAvatar(
           backgroundColor: Colors.white10,
           radius: 28,
-          child: Icon(icon, size: 26, color: Colors.white),
+          child: Icon(icon, size: 26, color: AppColors.kTextColor),
         ),
         const SizedBox(height: 6),
         Text(label, style: const TextStyle(fontSize: 12)),

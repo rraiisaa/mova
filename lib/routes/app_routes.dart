@@ -5,6 +5,9 @@ abstract class Routes {
 
   static const SPLASH = _Paths.SPLASH;
   static const ONBOARDING = _Paths.ONBOARDING;
+  static const PROFILE_FORM = _Paths.PROFILE_FORM;
+  static const CREATE_PIN = _Paths.CREATE_PIN;
+  static const CHOOSE_INTEREST = _Paths.CHOOSE_INTEREST;
   static const HOME = _Paths.HOME;
   static const MOVIE_DETAIL = _Paths.MOVIE_DETAIL;
   static const EXPLORE = _Paths.EXPLORE;
@@ -17,6 +20,9 @@ abstract class _Paths {
   _Paths._();
   static const SPLASH = '/splash';
   static const ONBOARDING = '/onboarding';
+  static const PROFILE_FORM = '/profile-form';
+  static const CREATE_PIN = '/create-pin';
+  static const CHOOSE_INTEREST = '/choose-interest';
   static const HOME = '/home';
   static const MOVIE_DETAIL = '/movie-detail';
   static const EXPLORE = '/explore';
