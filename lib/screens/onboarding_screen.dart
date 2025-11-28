@@ -154,7 +154,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             right: 25,
             child: InkWell(
               onTap: () {
-                Get.offAllNamed(Routes.CHOOSE_INTEREST); // GANTI route sesuai kebutuhan
+                Get.offAllNamed(Routes.YOUIN); // GANTI route sesuai kebutuhan
               },
               child: Container(
                 height: 45,

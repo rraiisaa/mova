@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mova_app/premium/premium_screen.dart';
-import 'package:mova_app/premium/widgets/premium_card.dart';
+import 'package:mova_app/screens/premium/premium_screen.dart';
+import 'package:mova_app/screens/premium/widgets/premium_card.dart';
 
 class ReviewSummaryScreen extends StatelessWidget {
   final String price;
@@ -15,8 +15,6 @@ class ReviewSummaryScreen extends StatelessWidget {
     required this.paymentMethod,
     this.cardLast4,
   });
-
-  
 
   @override
   Widget build(BuildContext context) {

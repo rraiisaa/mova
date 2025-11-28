@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mova_app/routes/app_pages.dart';
-import 'package:mova_app/screens/account_setup/create_pin_screen.dart';
 import 'package:mova_app/screens/account_setup/widgets/profile.dart';
 import 'package:mova_app/utils/app_color.dart';
 
 
 class ProfileFormScreen extends StatefulWidget {
-  static String routeName = Routes.PROFILE_FORM;
+  // static String routeName = Routes.PROFILE_FORM;
 
   const ProfileFormScreen({super.key});
 
@@ -26,11 +26,11 @@ class _ProfileFormState extends State<ProfileFormScreen> {
   final _formKey = GlobalKey<FormState>();
 
   void _onSkip() {
-    Navigator.pop(context, Routes.HOME);
+   Get.offAllNamed(Routes.HOME); // GANTI route sesuai kebutuhan
   }
 
   void _onContinue() {
-    Navigator.pop(context, Routes.HOME);
+    Get.offAllNamed(Routes.HOME);
   }
 
   @override
@@ -149,7 +149,7 @@ class _ProfileFormState extends State<ProfileFormScreen> {
                     alignment: Alignment.bottomCenter,
                     child: GestureDetector(
                       onTap: () =>
-                              Navigator.pop(context, Routes.HOME),
+                        Get.offAllNamed(Routes.HOME),
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 5,

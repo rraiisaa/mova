@@ -4,6 +4,9 @@ abstract class Routes {
   Routes._();
 
   static const SPLASH = _Paths.SPLASH;
+  static const YOUIN = _Paths.YOUIN;
+  static const LOGIN = _Paths.LOGIN;
+  static const REGISTER = _Paths.REGISTER;
   static const ONBOARDING = _Paths.ONBOARDING;
   static const PROFILE_FORM = _Paths.PROFILE_FORM;
   static const CREATE_PIN = _Paths.CREATE_PIN;
@@ -13,12 +16,17 @@ abstract class Routes {
   static const EXPLORE = _Paths.EXPLORE;
   static const PROFILE = _Paths.PROFILE;
   static const PREMIUM = _Paths.PREMIUM;
+  static const LANGUAGE_SETTING = _Paths.LANGUAGE_SETTING;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
 }
 
 // pendeklarasian routes dari masing masing screen
 abstract class _Paths {
   _Paths._();
   static const SPLASH = '/splash';
+  static const YOUIN = '/you-in';
+  static const LOGIN = '/login';
+  static const REGISTER = '/register';
   static const ONBOARDING = '/onboarding';
   static const PROFILE_FORM = '/profile-form';
   static const CREATE_PIN = '/create-pin';
@@ -28,4 +36,6 @@ abstract class _Paths {
   static const EXPLORE = '/explore';
   static const PROFILE = '/profile';
   static const PREMIUM = '/premium';
+  static const LANGUAGE_SETTING = '/language-setting';
+  static const EDIT_PROFILE = '/edit-profile';
 }

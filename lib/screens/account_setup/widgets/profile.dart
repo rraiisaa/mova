@@ -29,7 +29,7 @@ class ProfilePictureArea extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: AppColors.kSecondary,
-                  borderRadius: BorderRadius.circular(10)
+                  shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.edit,

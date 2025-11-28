@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mova_app/premium/payment_screen.dart';
-import 'package:mova_app/premium/widgets/premium_card.dart';
+import 'package:mova_app/screens/premium/payment_screen.dart';
+import 'package:mova_app/screens/premium/widgets/premium_card.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 
 class PremiumScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
               style: const TextStyle(
                 fontSize: 31,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFFE21220),
+                color: AppColors.kSecondary,
               ),
               textAlign: TextAlign.center,
             ),

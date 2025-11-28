@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mova_app/premium/add_new_card_screen.dart';
-import 'package:mova_app/premium/review_summary_screen.dart';
-import 'package:mova_app/premium/widgets/payment_option.dart';
+import 'package:mova_app/screens/premium/add_new_card_screen.dart';
+import 'package:mova_app/screens/premium/review_summary_screen.dart';
+import 'package:mova_app/screens/premium/widgets/payment_option.dart';
 import 'package:mova_app/utils/app_color.dart';
 
 class PaymentScreen extends StatefulWidget {
