@@ -38,7 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // NAVIGASI JIKA SUKSES
       if (mounted) Get.offAllNamed(Routes.HOME);
-
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -69,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 40),
-                
+
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
@@ -123,14 +122,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () =>
                         setState(() => _obscurePassword = !_obscurePassword),
                   ),
-                  validator: (value) =>
-                      value?.isEmpty ?? true ? 'Please enter your password' : null,
+                  validator: (value) => value?.isEmpty ?? true
+                      ? 'Please enter your password'
+                      : null,
                 ),
 
                 SizedBox(height: 30),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
                       onTap: () => setState(() => rememberMe = !rememberMe),
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         rememberMe
                             ? Icons.check_box
                             : Icons.check_box_outline_blank,
-                        color: Colors.red,
+                        color: AppColors.kSecondary,
                       ),
                     ),
                     SizedBox(width: 10),
@@ -157,16 +157,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _login,   // ← FIX DI SINI
+                    onPressed: _isLoading ? null : _login, // ← FIX DI SINI
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: AppColors.kSecondary,
+                      padding: EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
                     ),
                     child: _isLoading
-                        ? CustomLoader()
+                        ? SizedBox(
+                          height: 10, 
+                          width: 10, 
+                          child: CustomLoader())
                         : Text(
                             "Sign in",
                             style: TextStyle(

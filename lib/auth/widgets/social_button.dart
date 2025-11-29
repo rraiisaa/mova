@@ -13,7 +13,7 @@ class SocialButton extends StatelessWidget {
       height: 65,
       decoration: BoxDecoration(
         color:   Color.fromARGB(255, 55, 55, 55),
-        borderRadius: BorderRadius.circular(12),
+        shape: BoxShape.circle,
       ),
       child: Center(
         child: SvgPicture.asset(

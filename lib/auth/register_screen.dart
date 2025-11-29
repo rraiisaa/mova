@@ -4,6 +4,7 @@ import 'package:mova_app/auth/auth_services.dart';
 import 'package:mova_app/auth/widgets/custom_text_fields.dart';
 import 'package:mova_app/auth/widgets/social_button.dart';
 import 'package:mova_app/routes/app_pages.dart';
+import 'package:mova_app/screens/widgets/custom_loader.dart';
 import 'package:mova_app/utils/app_color.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -29,41 +30,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _authService = AuthServices();
 
-  // FUNCTION REGISTER
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
-
-    if (_passwordController.text.trim() !=
-        _confirmPasswordController.text.trim()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Password tidak sama."),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
-    setState(() => _isLoading = true);
+    setState(
+      () => _isLoading = true,
+    ); // jika dia sudah memvalidasi, dia akan loading
 
     try {
+      // try = dijalankan kalo berhasil
       await _authService.registerWithEmailAndPassword(
-        _emailController.text.trim(),
+        _emailController.text
+            .trim(), // trim() = menghilangkan spasi di awal dan akhir
         _passwordController.text.trim(),
       );
-
-      // JIKA SUKSES → NAVIGATE
-      if (mounted) Get.offAllNamed(Routes.CHOOSE_INTEREST);
-
     } catch (e) {
+      // catch = dijalankan kalo ada error
       if (mounted) {
+        // mounted = properti boolean untuk cek apakah widget masih ada di struktur widget di flutter atau ga
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(e.toString()),
+            backgroundColor: AppColors.kSecondary,
+          ),
         );
       }
     } finally {
+      // finally = dijalankan setelah try atau catch selesai
       if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -178,23 +180,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _register, // ← FIX DI SINI
+                    onPressed: _isLoading
+                        ? null
+                        : () async {
+                            await _register();
+                            if (!mounted) return;
+                            Get.offAllNamed(Routes.CHOOSE_INTEREST);
+                          },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: AppColors.kSecondary,
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
                       ),
+                      elevation: 4,
                     ),
                     child: _isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        ? SizedBox(
+                            height: 10,
+                            width: 10,
+                            child: CustomLoader(),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Register",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                   ),
                 ),
@@ -233,8 +251,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Already have an Account?",
-                        style: TextStyle(color: Colors.white)),
+                    const Text(
+                      "Already have an Account?",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     const SizedBox(width: 5),
                     GestureDetector(
                       onTap: widget.onLoginTap,

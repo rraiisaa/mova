@@ -14,6 +14,8 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const MOVIE_DETAIL = _Paths.MOVIE_DETAIL;
   static const EXPLORE = _Paths.EXPLORE;
+  static const MYLIST = _Paths.MYLIST;
+  static const DOWNLOAD = _Paths.DOWNLOAD;
   static const PROFILE = _Paths.PROFILE;
   static const PREMIUM = _Paths.PREMIUM;
   static const LANGUAGE_SETTING = _Paths.LANGUAGE_SETTING;
@@ -34,6 +36,8 @@ abstract class _Paths {
   static const HOME = '/home';
   static const MOVIE_DETAIL = '/movie-detail';
   static const EXPLORE = '/explore';
+  static const MYLIST = '/mylist';
+  static const DOWNLOAD = '/download';
   static const PROFILE = '/profile';
   static const PREMIUM = '/premium';
   static const LANGUAGE_SETTING = '/language-setting';

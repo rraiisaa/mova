@@ -45,6 +45,12 @@ class MovaBottomNav extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: currentIndex == 3
+              ? Icon(Icons.download)
+              : Icon(Icons.download_outlined),
+          label: "Download",
+        ),
+        BottomNavigationBarItem(
+          icon: currentIndex == 4
               ? Icon(Icons.person)
               : Icon(Icons.person_outline),
           label: "Profile",

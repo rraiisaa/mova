@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "605150603894",
-    "project_id": "mova-31bbd",
-    "storage_bucket": "mova-31bbd.firebasestorage.app"
+    "project_number": "573455585666",
+    "project_id": "mova-app-32cef",
+    "storage_bucket": "mova-app-32cef.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:605150603894:android:36feb8b6ac6a799b3c8d57",
+        "mobilesdk_app_id": "1:573455585666:android:20b2d19d72ef1d0a2c3f9b",
         "android_client_info": {
           "package_name": "com.example.mova_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBT-i9DJ8088xKLI7c4whJhuFQQNE1AKMA"
+          "current_key": "AIzaSyDk_XHE99-gFL3oeg9Zv8GOIotRtdh158Y"
         }
       ],
       "services": {

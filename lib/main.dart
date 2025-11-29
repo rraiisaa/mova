@@ -3,20 +3,30 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mova_app/l10n/app_localizations.dart';
+import 'package:mova_app/provider/download_provider.dart';
 import 'package:mova_app/routes/app_pages.dart';
 import 'package:mova_app/utils/app_color.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
-      apiKey: "AIzaSyBT-i9DJ8088xKLI7c4whJhuFQQNE1AKMA",
-      appId: "1:605150603894:android:36feb8b6ac6a799b3c8d57",
-      messagingSenderId: "605150603894",
-      projectId: "mova-31bbd",
+      apiKey: "AIzaSyDk_XHE99-gFL3oeg9Zv8GOIotRtdh158Y",
+      appId: "1:573455585666:android:20b2d19d72ef1d0a2c3f9b",
+      messagingSenderId: "573455585666",
+      projectId: "mova-app-32cef",
     ),
   );
-  runApp(const MovieApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DownloadProvider()),
+        // tambahkan provider lain kalau nanti ada
+      ],
+      child: MovieApp(),
+    ),
+  );
 }
 
 class MovieApp extends StatefulWidget {
@@ -60,9 +70,7 @@ class _MovieAppState extends State<MovieApp> {
           bodyColor: AppColors.kTextColor,
           displayColor: AppColors.kTextColor,
         ),
-        colorScheme: const ColorScheme.dark().copyWith(
-          primary: AppColors.kSecondary,
-        ),
+        colorScheme: ColorScheme.dark().copyWith(primary: AppColors.kSecondary),
       ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

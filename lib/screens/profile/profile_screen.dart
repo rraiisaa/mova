@@ -24,7 +24,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Locale? _selectedLocale;
   bool darkMode = true;
-  int _selectedIndex = 3;
+  int _selectedIndex = 4;
 
   @override
   void initState() {
@@ -177,9 +177,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else if (i == 1) {
             Navigator.pushReplacementNamed(context, Routes.EXPLORE);
           } else if (i == 2) {
-            // Navigator.pushReplacementNamed(context, Routes.SAVED);
+            Navigator.pushReplacementNamed(context, Routes.MYLIST);
           } else if (i == 3) {
-            ;
+            Navigator.pushReplacementNamed(context, Routes.DOWNLOAD);
+          } else if (i == 4) {
+            // tetap di profile
           }
         },
       ),

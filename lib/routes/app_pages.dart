@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:mova_app/auth/choice_auth_screen.dart';
 import 'package:mova_app/auth/register_screen.dart';
 import 'package:mova_app/auth/login_screen.dart';
+import 'package:mova_app/screens/download/download_screen.dart';
+import 'package:mova_app/screens/list/mylist_screen.dart';
 import 'package:mova_app/screens/premium/premium_screen.dart';
 import 'package:mova_app/screens/account_setup/choose_interest_screen.dart';
 import 'package:mova_app/screens/account_setup/create_pin_screen.dart';
@@ -69,6 +71,18 @@ class AppPages {
     GetPage(
       name: _Paths.EXPLORE,
       page: () => ExploreScreen(),
+    ),
+    GetPage(
+      name: _Paths.MYLIST,
+      page: () => MyListScreen(),
+    ),
+    GetPage(
+      name: _Paths.MYLIST,
+      page: () => MyListScreen(),
+    ),
+    GetPage(
+      name: _Paths.DOWNLOAD,
+      page: () => DownloadScreen(),
     ),
     GetPage(
       name: _Paths.PROFILE,

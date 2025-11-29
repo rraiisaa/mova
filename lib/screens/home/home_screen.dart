@@ -47,8 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (i == 1) {
             Navigator.pushReplacementNamed(context, Routes.EXPLORE);
           } else if (i == 2) {
-            Navigator.pushReplacementNamed(context, '/saved');
+            Navigator.pushReplacementNamed(context, Routes.MYLIST);
           } else if (i == 3) {
+            Navigator.pushReplacementNamed(context, Routes.DOWNLOAD);
+          } else if (i == 4) {
             Navigator.pushReplacementNamed(context, Routes.PROFILE);
           }
         },
