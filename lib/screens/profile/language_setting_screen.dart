@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mova_app/l10n/app_localizations.dart';
+import 'package:mova_app/main.dart';
 
 class AppLanguage {
   final String key;
@@ -18,16 +19,21 @@ class LanguageSettingsScreen extends StatefulWidget {
 class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
   Locale? selectedLocale;
 
-@override
-void didChangeDependencies() {
-  super.didChangeDependencies();
-  setState(() {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     selectedLocale = Localizations.localeOf(context);
-  });
-}
+  }
+
+void changeLanguage(Locale locale) {
+  MovieApp.setLocale(context, locale);
+  setState(() => selectedLocale = locale);
+  Navigator.pop(context);
+}  
+
   final suggested = [
     AppLanguage("englishUS", const Locale("en")),
-    AppLanguage("englishUK", const Locale("en", "GB")),
+    AppLanguage("englishUK", const Locale("en")),
   ];
 
   final languages = [
@@ -50,10 +56,6 @@ void didChangeDependencies() {
     AppLanguage("thai", const Locale("th")),
   ];
 
-  void changeLanguage(Locale locale) {
-    Navigator.pop(context, locale);
-  }
-
   Widget buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, bottom: 8, top: 25),
@@ -70,8 +72,8 @@ void didChangeDependencies() {
 
   Widget buildLanguageTile(String title, Locale locale) {
     final isSelected =
-    (selectedLocale?.languageCode == locale.languageCode) &&
-    (selectedLocale?.countryCode == locale.countryCode);
+        (selectedLocale?.languageCode == locale.languageCode) &&
+        (selectedLocale?.countryCode == locale.countryCode);
 
     return InkWell(
       onTap: () => changeLanguage(locale),
@@ -121,28 +123,15 @@ void didChangeDependencies() {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-
       body: ListView(
         children: [
-          // Suggested Section
           buildSectionTitle(t.suggested),
-          ...suggested.map((lang) {
-            return buildLanguageTile(
-              t.get(lang.key),
-              lang.locale,
-            );
-          }).toList(),
+          ...suggested.map((lang) => buildLanguageTile(t.get(lang.key), lang.locale)),
 
           const Divider(color: Colors.white12, thickness: 1, height: 30),
 
-          // Language Section
           buildSectionTitle(t.language),
-          ...languages.map((lang) {
-            return buildLanguageTile(
-              t.get(lang.key),
-              lang.locale,
-            );
-          }).toList(),
+          ...languages.map((lang) => buildLanguageTile(t.get(lang.key), lang.locale)),
         ],
       ),
     );

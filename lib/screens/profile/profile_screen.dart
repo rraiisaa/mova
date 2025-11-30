@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mova_app/auth/auth_services.dart';
 import 'package:mova_app/l10n/app_localizations.dart';
 import 'package:mova_app/main.dart';
 import 'package:mova_app/routes/app_pages.dart';
 import 'package:mova_app/screens/account_setup/widgets/profile.dart';
-import 'package:mova_app/screens/premium/premium_screen.dart';
-import 'package:mova_app/screens/profile/edit_profile_screen.dart';
 import 'package:mova_app/screens/profile/language_setting_screen.dart';
 import 'package:mova_app/screens/profile/widgets/premium_card.dart';
 import 'package:mova_app/screens/profile/widgets/settings_switch_tile.dart';
@@ -15,13 +14,14 @@ import 'package:mova_app/utils/app_color.dart';
 import 'widgets/settings_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final AuthServices _authServices = AuthServices();
   Locale? _selectedLocale;
   bool darkMode = true;
   int _selectedIndex = 4;
@@ -128,13 +128,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
+                          onTap: () async {
+                            await _authServices.signOut();
+                            return Get.offAllNamed(Routes.ONBOARDING);
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             decoration: BoxDecoration(
-                              color: Color(0xFFE21220),
+                              color: AppColors.kSecondary,
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Center(
@@ -173,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           setState(() => _selectedIndex = i);
           // tambahkan navigasi
           if (i == 0) {
-          Navigator.pushReplacementNamed(context, Routes.HOME);
+            Navigator.pushReplacementNamed(context, Routes.HOME);
           } else if (i == 1) {
             Navigator.pushReplacementNamed(context, Routes.EXPLORE);
           } else if (i == 2) {
@@ -215,12 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             const SizedBox(height: 30),
 
-            Stack(
-              children: [
-                const ProfilePictureArea(),
-               
-              ],
-            ),
+            Stack(children: [const ProfilePictureArea()]),
 
             const SizedBox(height: 18),
 
@@ -254,23 +250,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SettingsTile(
               icon: FontAwesomeIcons.user,
               title: t.editProfile,
-              // onTap: () {
-              //   // TODO : Ganti ke Get.toNamed ketika route udah siap
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (_) => EditProfileScreen(
-              //         locale: MovieApp.of(context)!.currentLocale,
-              //       ),
-              //     ),
-              //   );
-              // },
               onTap: () {
-                Get.offAllNamed(Routes.EDIT_PROFILE); // Navigate ke Premium
+                Get.offAllNamed(
+                  Routes.EDIT_PROFILE,
+                ); // Navigate ke Edit Profile
               },
             ),
             SettingsTile(icon: FontAwesomeIcons.bell, title: t.notification),
-            SettingsTile(icon: FontAwesomeIcons.download, title: t.download),
+            SettingsTile(
+              icon: FontAwesomeIcons.download,
+              title: t.download,
+              onTap: () {
+                Get.offAllNamed(Routes.DOWNLOAD); // Navigate ke Download
+              },
+            ),
             SettingsTile(
               icon: FontAwesomeIcons.shieldHalved,
               title: t.security,

@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:mova_app/auth/choice_auth_screen.dart';
 import 'package:mova_app/auth/register_screen.dart';
 import 'package:mova_app/auth/login_screen.dart';
+import 'package:mova_app/controllers/my_list_controller.dart';
 import 'package:mova_app/screens/download/download_screen.dart';
+import 'package:mova_app/screens/list/mylist_binding.dart';
 import 'package:mova_app/screens/list/mylist_screen.dart';
 import 'package:mova_app/screens/premium/premium_screen.dart';
 import 'package:mova_app/screens/account_setup/choose_interest_screen.dart';
@@ -72,13 +74,12 @@ class AppPages {
       name: _Paths.EXPLORE,
       page: () => ExploreScreen(),
     ),
-    GetPage(
-      name: _Paths.MYLIST,
+   GetPage(
+      name: Routes.MYLIST,
       page: () => MyListScreen(),
-    ),
-    GetPage(
-      name: _Paths.MYLIST,
-      page: () => MyListScreen(),
+      binding: BindingsBuilder(() {
+      Get.put(MyListController());
+    }),
     ),
     GetPage(
       name: _Paths.DOWNLOAD,

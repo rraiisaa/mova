@@ -54,6 +54,8 @@ class Movie {
       'original_language': originalLanguage,
       'release_date': releaseDate,
       'popularity': popularity,
+      'media_type': mediaType,
+
     };
   }
 }

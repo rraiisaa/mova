@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mova_app/controllers/my_list_controller.dart';
 import 'package:mova_app/models/mova_model.dart';
 import 'package:mova_app/screens/detail/widgets/trailer.dart';
 import 'package:mova_app/screens/widgets/custom_loader.dart';
@@ -11,8 +13,9 @@ import 'dart:ui';
 class MovieDetailsScreen extends StatefulWidget {
   final Movie
   movie; // Menerima data Movie dari screen sebelumnya (home / explore).
+  final MyListController myListC = Get.find<MyListController>();
 
-  const MovieDetailsScreen({super.key, required this.movie});
+  MovieDetailsScreen({super.key, required this.movie});
 
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
@@ -109,6 +112,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
 
   // ===== TITLE =====
   Widget _buildTitleRow() {
+    final MyListController myListC = Get.find<MyListController>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
@@ -124,10 +129,32 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
             ),
           ),
 
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.bookmark_border, color: Colors.white70),
+          // SAVE BUTTON
+          Obx(
+            () => IconButton(
+              icon: Icon(
+                myListC.isSaved(widget.movie.id.toString())
+                    ? Icons.bookmark
+                    : Icons.bookmark_border,
+                color: Colors.white70,
+              ),
+              onPressed: () async {
+                if (myListC.isSaved(widget.movie.id.toString())) {
+                  await myListC.removeMovie(widget.movie.id.toString());
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Removed from My List")),
+                  );
+                } else {
+                  await myListC.saveMovie(widget.movie);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Saved to My List")),
+                  );
+                }
+              },
+            ),
           ),
+
           IconButton(
             onPressed: () => showShareSheet(context),
             icon: const Icon(Icons.send, color: Colors.white70),
@@ -137,6 +164,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
     );
   }
 
+  // Rating sheet
   void _showRatingSheet(BuildContext context) {
     int selectedRating = 0;
 
@@ -544,7 +572,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
           alignment: Alignment.center,
           child: Text(
             name,
-            style: const TextStyle(fontSize: 12, color: AppColors.kTextColor, ),
+            style: const TextStyle(fontSize: 12, color: AppColors.kTextColor),
           ),
         ),
         Text(role, style: const TextStyle(color: Colors.white54)),
@@ -779,7 +807,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen>
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: AppColors.kTextColor
+                        color: AppColors.kTextColor,
                       ),
                     ),
                     Text(

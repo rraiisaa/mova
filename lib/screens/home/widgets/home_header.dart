@@ -34,6 +34,7 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: double.infinity,
       height: 260, // sesuai permintaan: pendek (tidak setengah layar)
       child: Stack(
         children: [
@@ -85,7 +86,6 @@ class HomeHeader extends StatelessWidget {
                 SizedBox(height: 6),
 
                 Text(
-                  // placeholder genres — kamu bisa map genre IDs -> names jika mau
                   "Action • Adventure • Sci-fi",
                   style: TextStyle(
                     color: AppColors.kTextColor.withValues(alpha: 0.75),
@@ -126,7 +126,7 @@ class HomeHeader extends StatelessWidget {
                         style: TextStyle(color: AppColors.kTextColor),
                       ),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.white24),
+                        side: BorderSide(color: AppColors.kTextColor),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),

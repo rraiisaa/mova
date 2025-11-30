@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class DeleteDialog extends StatelessWidget {
   final Map<String, String> item;
@@ -86,7 +87,7 @@ class DeleteDialog extends StatelessWidget {
                     Text(
                       item["fileSize"]!,
                       style: TextStyle(
-                        color: Colors.red[400],
+                        color: AppColors.kSecondary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -120,7 +121,7 @@ class DeleteDialog extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: onConfirm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    backgroundColor: AppColors.kSecondary,
                     padding: EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),

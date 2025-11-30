@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mova_app/routes/app_pages.dart';
 import 'package:mova_app/screens/premium/payment_screen.dart';
 import 'package:mova_app/screens/premium/widgets/premium_card.dart';
 import 'package:mova_app/utils/app_color.dart';
@@ -17,13 +19,15 @@ class _PremiumScreenState extends State<PremiumScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.kPrimary,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 13, 13, 16),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Get.toNamed(Routes.PROFILE);
+          },
         ),
       ),
       body: SingleChildScrollView(

@@ -88,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Get.toNamed(Routes.LOGIN),
                     icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                   ),
                 ),

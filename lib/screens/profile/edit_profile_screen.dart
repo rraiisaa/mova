@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mova_app/l10n/app_localizations.dart';
+import 'package:mova_app/routes/app_pages.dart';
+import 'package:mova_app/utils/app_color.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final Locale locale;
@@ -53,9 +56,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F0F0F),
+      backgroundColor: AppColors.kPrimary,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0F0F0F),
+        backgroundColor: AppColors.kAdded,
         elevation: 0,
        title: Text(
   AppLocalizations.of(context)!.editProfile,
@@ -86,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.red.withOpacity(0.25),
+                        color: AppColors.kSecondary.withOpacity(0.25),
                         blurRadius: 20,
                         spreadRadius: 2,
                       ),
@@ -94,7 +97,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   child:  CircleAvatar(
                     radius: 57,
-                    backgroundColor: Colors.black,
+                    backgroundColor: AppColors.kAdded,
                     backgroundImage: profileImagePath != null
                               ? FileImage(File(profileImagePath!))
                               : AssetImage("assets/images/profile_user.jpg") 
@@ -110,11 +113,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: 32,
                       width: 32,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFE21220),
+                        color: AppColors.kSecondary,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.redAccent.withOpacity(.5),
+                            color: AppColors.kSecondary.withOpacity(.5),
                             blurRadius: 6,
                           )
                         ],
@@ -169,14 +172,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               height: 54,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE21220),
+                  backgroundColor: AppColors.kSecondary,
                   elevation: 3,
-                  shadowColor: Colors.redAccent.withOpacity(.4),
+                  shadowColor: AppColors.kSecondary.withOpacity(.4),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Get.offAllNamed(Routes.PROFILE);
+                },
                 child: const Text(
                   "Save",
                   style: TextStyle(
@@ -202,7 +207,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Text(
         label,
         style: TextStyle(
-          color: Colors.red.shade400,
+          color: AppColors.kSecondary,
           fontSize: 13,
           fontWeight: FontWeight.w600,
           letterSpacing: .5,
@@ -248,7 +253,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide:
-                  const BorderSide(color: Color(0xFFE21220), width: 1.3),
+                  BorderSide(color: AppColors.kSecondary, width: 1.3),
             ),
           ),
         ),
@@ -268,17 +273,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         height: 52,
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFFE21220).withOpacity(.20)
+              ? AppColors.kSecondary.withOpacity(.20)
               : Colors.white10,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? const Color(0xFFE21220) : Colors.transparent,
+            color: isSelected ? AppColors.kSecondary : Colors.transparent,
             width: 1.2,
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: Colors.red.withOpacity(.35),
+                    color: AppColors.kSecondary.withOpacity(.35),
                     blurRadius: 12,
                   )
                 ]
@@ -288,7 +293,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Text(
             gender,
             style: TextStyle(
-              color: isSelected ? Colors.redAccent : Colors.white70,
+              color: isSelected ? AppColors.kSecondary : Colors.white70,
               fontWeight: FontWeight.w600,
               fontSize: 14,
             ),
@@ -312,7 +317,7 @@ Widget buildDropdown() {
     ),
     child: DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-        dropdownColor: const Color(0xFF161616),
+        dropdownColor: AppColors.kAdded,
         value: selectedCountry,
         alignment: Alignment.centerLeft,
         icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white70),
@@ -321,7 +326,7 @@ Widget buildDropdown() {
           return DropdownMenuItem(
             value: country,
             child: Text(country,
-                style: const TextStyle(color: Colors.white)),
+                style: const TextStyle(color: AppColors.kTextColor)),
           );
         }).toList(),
         onChanged: (value) {
