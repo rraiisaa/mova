@@ -1,16 +1,20 @@
-# mova_app
+# Mova | Movie Streaming App
 
-A new Flutter project.
+Mova is a modern movie streaming application built using Flutter with a clean and intuitive UI. The app allows users to 
+explore movie details, watch trailers, and manage personal movie lists in real time.
 
-## Getting Started
+Key Features: 
+🔐 Authentication — Firebase login & register
+🏠 Home Page — trending, popular, and recommended movies via TMDB API
+🎬 Detail Screen — ratings, descriptions, and direct trailer preview
+⭐ My List — real-time saved list synced with Firestore
+📥 Download Screen
+👤 Profile Settings
 
-This project is a starting point for a Flutter application.
+🔗 Integrated YouTube trailers
+Tech Stack: Flutter, GetX, Firebase Auth, Firestore, TMDB API, YouTube Player
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img width="1785" height="2526" alt="Mockup_MovaApp" src="https://github.com/user-attachments/assets/1cfd2119-a20c-4750-b7b8-a9eb4747e5b4" />
+<img width="1920" height="1080" alt="Slide 16_9 - 1" src="https://github.com/user-attachments/assets/b41aae97-8967-42dc-ac34-55e1d2d7f161" />
